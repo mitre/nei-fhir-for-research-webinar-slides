@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>NIH/NEI FHIR for Research Webinar</title>
+  <!--<link rel="stylesheet" href="deep-dive.css">-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <style>
+    .slidenumber {
+      font-size: 1em;
+      background: #000;
+      float: right;
+      z-index: 1000000;
+      height: 2em;
+      color: #fff;
+      width: 2.5em;
+      text-align: center;
+      padding-top: 0.3em;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      margin-top: -2em;
+      position: relative;
+    }
+  </style>
+</head>
+
+<body id="home">
+  <div class="container">
+    <h1>NIH/NEI FHIR for Research Webinar</h1>
+    <p>February 27, 2024</p>
+    <p><em>Click any slide to open a larger version in a new window.</em></p>
+  </div>
+  <div class="container">
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-1.png" target="_blank" name="2"><img src="slides/slide-1.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#2">2</a>
+      </div>
+      <div class="col-4">
+        
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-6.png" target="_blank" name="7"><img src="slides/slide-6.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#7">7</a>
+      </div>
+      <div class="col-4">
+        <p>In the first part of this webinar, we will introduce FHIR for Research, and in the second part we will get into deeper technical detail.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-7.png" target="_blank" name="8"><img src="slides/slide-7.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#8">8</a>
+      </div>
+      <div class="col-4">
+        
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-8.png" target="_blank" name="9"><img src="slides/slide-8.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#9">9</a>
+      </div>
+      <div class="col-4">
+        <p>We&#39;ll start off by talking about the FHIR standard at a high level. FHIR is a standard for exchanging health information electronically. Standards like FHIR help to establish a common language and a common process for health information technology systems which allow these systems to communicate with each other and share information more seamlessly and efficiently.</p>
+
+<p>FHIR stands for Fast Healthcare Interoperability Resources. The &quot;Fast&quot; refers to designing and implementing FHIR. One of the design goals of FHIR was to specifically to make FHIR easier to work with from an implementation standpoint compared with other standards in use at the time.</p>
+
+<p>&quot;Resources&quot; refers to building blocks of FHIR, and we&#39;ll be talking a lot about resources in the rest of this webinar.</p>
+
+<p>FHIR is an open source standard that is free to use. It is developed as part of an open standards process.</p>
+
+<p>FHIR is modular: resources and other constructs in FHIR allow for solutions to be assembled to meet the needs of a specific use case.</p>
+
+<p>This kind of customizability is built-in throughout FHIR&#39;s design, including through FHIR features like extensions and profiling. We&#39;ll talk more about those features later on in the webinar.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-9.png" target="_blank" name="10"><img src="slides/slide-9.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#10">10</a>
+      </div>
+      <div class="col-4">
+        <p>To give you a sense of what kinds of resources are available in FHIR, this screenshot shows a partial list of the FHIR resources available in the most recent published version of FHIR called FHIR R5.</p>
+
+<p>The take-away from this slide is that there are a <em>lot</em> of different resources covering a wide variety of health-related data types.</p>
+
+<p>Resources related to diagnostics, like <code>Observation</code> and <code>ImagingStudy</code> might be expected. There are other resources related to healthcare workflows like <code>Schedule</code>, <code>Appointment</code>, and <code>Encounter</code>. There are also a number of resources that are used to implement FHIR features, like <code>StructureDefinition</code> and <code>ValueSet</code>.</p>
+
+<p>If you&#39;re interested seeing the full list of FHIR R5 Resources, you can go to <a href="https://hl7.org/fhir/r5/resourcelist.html">https://hl7.org/fhir/r5/resourcelist.html</a>.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-10.png" target="_blank" name="11"><img src="slides/slide-10.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#11">11</a>
+      </div>
+      <div class="col-4">
+        <p>Now that we&#39;ve talked about the kinds of data FHIR can represent, we&#39;ll talk about how these data can be moved around using FHIR. This slide shows a diagram of a standard FHIR information flow.</p>
+
+<p>Typically, when systems use FHIR, there is a FHIR client (over the left). It could be an app, it could be a user interface on a computer, or it could be a backend server.</p>
+
+<p>These clients can then request FHIR information from a FHIR web server.</p>
+
+<p>Those requests go over the HTTP RESTful API. This is common web technology-- it&#39;s not just something that&#39;s used by FHIR. We&#39;ll talk a little bit more about how FHIR leverages common web technology, both for the RESTful interface and also for other aspects of FHIR.</p>
+
+<p>The FHIR web server could be part of an EHR or it could be a standalone server, and the FHIR web server can communicate with underlying data systems that store the data, and then convert those data into FHIR format to send back to the FHIR client.</p>
+
+<p>An example of a FHIR client is the the health app on an iPhone that uses FHIR to connect to a patient&#39;s providers EHR to pull down data. It can also be a research application. It could be something like a clinical decision support system that gets integrated into an EHR. And all of these use the same underlying approach for asking for data from the FHIR server and for for formatting that data for sending back and forth.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-11.png" target="_blank" name="12"><img src="slides/slide-11.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#12">12</a>
+      </div>
+      <div class="col-4">
+        <p>Now that I&#39;ve introduced what FHIR is and how it works at a high level, I&#39;ll talk a little bit now about where FHIR came from.</p>
+
+<p>You might have heard of HL7 V2 or HL7 V3. HL7 is a health standards body. They&#39;re responsible for developing FHIR and for maintaining FHIR and also for some of the other key health IT standards that are used both in the US and also internationally.</p>
+
+<p>V2 is around 30 years old now and it was designed for point-to-point messaging. It was limited to messaging like orders and transfers and couldn&#39;t handle complex interoperability like we&#39;ll talk about with FHIR, like connecting custom clinical decision support systems directly into an EHR.</p>
+
+<p>HL7 V3 was developed to to provide a replacement for V2 that was more flexible and addressed some of the other issues with interoperability around V2. However, in practice V3 was pretty hard to implement, so it isn&#39;t widely used except for one exception that I&#39;ll touch on a little bit later.</p>
+
+<p>FHIR came out of these standards. It really tried to take the lessons learned from these standards and develop a new standard that was easier to implement, easier to use, while using technology that was already widespread in the general tech industry -- not just in health care technology. So later on in the webinar, we&#39;ll talk about how common technologies like JSON and XML are used to format FHIR data rather than a healthcare domain-specific format. I&#39;ve already mentioned the RESTful interface that goes over an HTTP connection -- this is the same technology we use for accessing web pages. FHIR implementations also use OAuth2 and OpenID Connect, which are common authentication and authorization standards that are also widely used for web applications outside of healthcare.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-12.png" target="_blank" name="13"><img src="slides/slide-12.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#13">13</a>
+      </div>
+      <div class="col-4">
+        <p>To put the timeline of FHIR into a little bit of perspective here, FHIR was first introduced in a blog post on Grahame Greaves blog. He&#39;s the main architect of FHIR at HL7. This was back in 2011. And since then there&#39;s been a regular cadence of updates to the FHIR specification. The most recent version of FHIR (called FHIR R5) was released in December 2023.</p>
+
+<p>And I&#39;ve highlighted the word normative here on the slide. Normative means that the resources with this flag attached to them are considered mature enough to not really need any more changes going forward. And this is just a signal for the level of maturity. It is one of the reasons why now is a good time to start looking at how FHIR can be used for research, because it really is getting to that point where the at least some of the key parts of the specification are quite mature and also seeing adoption.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-13.png" target="_blank" name="14"><img src="slides/slide-13.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#14">14</a>
+      </div>
+      <div class="col-4">
+        <p>We&#39;ll come back to FHIR adoption in a bit, but first I want to talk about some examples of how FHIR can be used specifically for ocular research.</p>
+
+<p>This isn&#39;t meant to be a comprehensive overview of all the ways that FHIR could possibly be used -- instead, it&#39;s a collection of some of the more relevant use cases based on what we&#39;ve learned from talking to ocular informatics experts and what&#39;s been published across other specialties.</p>
+
+<p>We will go through each of these use cases on the next few slides:</p>
+
+<ol>
+<li><p>Clinical decision support (including custom AI)</p></li>
+<li><p>Interoperability between ocular imaging devices and EHRs</p></li>
+<li><p>Integrate non-standard data into EHRs (e.g. patient-reported)</p></li>
+<li><p>Clinical trial case report forms</p></li>
+</ol>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-14.png" target="_blank" name="15"><img src="slides/slide-14.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#15">15</a>
+      </div>
+      <div class="col-4">
+        <p>With clinical decision support, FHIR provides a standard format and structure for working with data from an EHR, as well as a way to standardize on terminology.</p>
+
+<p>A related technology called SMART on FHIR provides a way to integrate a custom web application into an EHR, which allows you to integrate non-FHIR data into a CDS workflow, including output from an AI or ML model.</p>
+
+<p>There are two citations that are relevant here, which we&#39;ll cover on the subsequent slides:</p>
+
+<ul>
+<li><a href="https://doi.org/10.1016/j.ogla.2020.08.006">https://doi.org/10.1016/j.ogla.2020.08.006</a></li>
+<li><a href="https://doi.org/10.1055/s-0041-1728757">https://doi.org/10.1055/s-0041-1728757</a></li>
+</ul>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-15.png" target="_blank" name="16"><img src="slides/slide-15.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#16">16</a>
+      </div>
+      <div class="col-4">
+        <p><a href="https://doi.org/10.1016/j.ogla.2020.08.006">This paper</a> explains how SMART on FHIR could be used in a glaucoma clinic. If you&#39;re interested in research on new ocular-related CDS approaches or workflows, this paper is worth reading.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-16.png" target="_blank" name="17"><img src="slides/slide-16.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#17">17</a>
+      </div>
+      <div class="col-4">
+        <p>We weren&#39;t able to find any examples in the literature of eye-specific CDS powered by FHIR, but there are some good examples from other specialties. <a href="https://doi.org/10.1055/s-0041-1728757">This paper</a> in particular is a good example of integrating an AI model for predicting likelihood of success for alternate treatment strategies for Type 2 diabetes into a EHR, in this case at the University of Utah.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-17.png" target="_blank" name="18"><img src="slides/slide-17.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#18">18</a>
+      </div>
+      <div class="col-4">
+        <p>This is a a screenshot of one of the figures from the paper showing what the interface actually looks like inside the EHR. What&#39;s interesting about this is that with SMART on FHIR, the authors were able to get data from the EHR for the specific patient sent out to the AI model. The AI model was able to deliver these recommendations customized for that specific patient, and then this was able to be directly integrated into the EHR.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-18.png" target="_blank" name="19"><img src="slides/slide-18.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#19">19</a>
+      </div>
+      <div class="col-4">
+        <p>One of the things we heard from the researchers we talk to was that getting data from ocular imaging devices can be difficult, and FHIR provides a mechanism that can support data exchange between the EHR and a PACS used by these devices.</p>
+
+<p>Like with CDS, for this use case FHIR provides a data format, a structure, and a way to standardize terminology. FHIR API endpoints or SMART on FHIR can be used to move data in or out of the EHR.</p>
+
+<p>We were not able to find any journal articles talking about using FHIR to connect EHRs and ocular imaging devices, but there was a FHIR Connectathon back in May of 2021 that had a track specifically around this particular use case, and <a href="https://confluence.hl7.org/display/FHIR/2021-05+Ophthalmology+track+connectathon+27">this link</a> provides some more information about how that worked if you are interested in reading more. <a href="https://doi.org/10.1007/s10278-018-0087-6">This article</a> has more detail about an image-centric workflow using FHIR that may also be of interest.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-19.png" target="_blank" name="20"><img src="slides/slide-19.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#20">20</a>
+      </div>
+      <div class="col-4">
+        <p>A third example of using of FHIR that may be relevant for ocular research is integrating patient reported data into an EHR. We didn&#39;t find an ocular-specific example of this, but we do have this example related to COVID-19 symptoms self tracking. The authors of this paper integrated this patient-reported data form into Yale&#39;s EHR using SMART on FHIR. They were able to successfully record patient reported data like oxygen saturation into the EHR, and this paper has a really good discussion of the IT challenges and solutions that they found.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-20.png" target="_blank" name="21"><img src="slides/slide-20.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#21">21</a>
+      </div>
+      <div class="col-4">
+        <p>Another use case is using FHIR to fill in repetitive forms with data from an EHR, like clinical trial case report forms in this example. Usually in a clinical trial, these forms would be filled out manually by a study coordinator. This paper is a proof of concept looking at 40 patients in a COVID trial at Vanderbilt, using EHR data to fill the case report forms using FHIR.</p>
+
+<p>The there is a total of almost 12,000 values that could be populated with FHIR in this paper. 84% of those values were able to be populated with data from the EHR using FHIR, and they had 89% concordance with human data entry; the few mismatches were actually often due to the data entry error.</p>
+
+<p>The study flow diagram on the right hand half of the slide is Figure 1 from the paper. It shows just for the first ten participants in the trial, a breakdown of what happened with the matching of these data elements. So for those first ten patients, 93% were exact matches. For the fields that were mismatched, 6% were due to coordinator error (i.e., human data entry error). Just a few were due to issues with the underlying EHR data.</p>
+
+<p>Again, this is not an ocular-specific example but it shows how FHIR can be leveraged if you need data from an EHR for something like case report forms.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-21.png" target="_blank" name="22"><img src="slides/slide-21.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#22">22</a>
+      </div>
+      <div class="col-4">
+        <p>Note that the papers in the previous slides, and all the links in this presentation are available at <a href="https://purl.org/fhir-for-research/nei/webinar">https://purl.org/fhir-for-research/nei/webinar</a> for reference.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-22.png" target="_blank" name="23"><img src="slides/slide-22.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#23">23</a>
+      </div>
+      <div class="col-4">
+        
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-23.png" target="_blank" name="24"><img src="slides/slide-23.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#24">24</a>
+      </div>
+      <div class="col-4">
+        <p>Next, I&#39;ll talk a little bit about the current state of FHIR adoption. This map shows FHIR adoption as of 2019. Unfortunately, there is not a more up to date map available. But in 2019 this shows that 87% of hospitals and 69% of these clinicians use EHRs that were certified for HL7 FHIR.</p>
+
+<p>We have some more recent data that shows that around 78% of clinicians now have also EHR software that supports FHIR and the five leading EHR vendors includes support for FHIR and these cover 55% of all clinicians.</p>
+
+<p>FHIR is now it is quite widely available and especially most large health systems are running the EHRs that support FHIR.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-24.png" target="_blank" name="25"><img src="slides/slide-24.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#25">25</a>
+      </div>
+      <div class="col-4">
+        <p>There are a couple of factors that are driving FHIR adoption.</p>
+
+<p>One is the 21st Century Cures Act. The Office of the National Coordinator for Health Information Technology, or ONC is responsible for implementing the US Health IT certification program alongside the 21st Century Cures Act.</p>
+
+<p>The Cures Act supports better access to health information and has added in some additional interoperability criteria into the existing Health IT certification program. This Health IT certification program is voluntary for health IT vendors, but CMS provides a financial incentive, which means that it is pretty widely adopted.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-25.png" target="_blank" name="26"><img src="slides/slide-25.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#26">26</a>
+      </div>
+      <div class="col-4">
+        <p>Some of the key milestones for adoption of FHIR as part of ONC rules include:</p>
+
+<ul>
+<li>USCDI in 2021 (see next slide)</li>
+<li>FHIR APIs at the end of 2022</li>
+<li>FHIR Bulk Data Export at the end of 2023, which provides a way to get large amounts of FHIR data for background processing</li>
+</ul>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-26.png" target="_blank" name="27"><img src="slides/slide-26.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#27">27</a>
+      </div>
+      <div class="col-4">
+        <p>USCDI is a standardized set of data elements for health data in the United States. US Core is the FHIR implementation aligned to USCDI. The first published version of the US Core specification initially came out in 2021, and it&#39;s been updated every January since then, starting in 2022.</p>
+
+<p>A lot of other US-focused FHIR specifications are actually based off of US Core. And this is helpful for researchers because if you are working on a specification or you&#39;re using an existing one, and it&#39;s already based on US Core, it makes it a lot easier for an EHR vendor to actually implement it.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-27.png" target="_blank" name="28"><img src="slides/slide-27.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#28">28</a>
+      </div>
+      <div class="col-4">
+        <p>I&#39;ll now discuss FHIR&#39;s relationship to other standards.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-28.png" target="_blank" name="29"><img src="slides/slide-28.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#29">29</a>
+      </div>
+      <div class="col-4">
+        <p>I previously mentioned HL7 V2 and V3 as other standards that are related to FHIR.
+I&#39;ll cover these here in a bit more detail as they&#39;re still definitely in use and relevant.</p>
+
+<p>As I said before, HL7 V2 is around 30 years old. It allows for simple transfer of information, or point-to-point messaging -- it doesn&#39;t support more complex interactions. So for example, the paper that used SMART on FHIR to add custom clinical decision support directly into an EHR would not really be possible using V2, but it is possible with FHIR.</p>
+
+<p>HL7 V3 was developed as a way to extend interoperability from V2 to allow for a lot more complexity. It also used some standard technologies like SOAP and XML that come from outside health IT and the idea of V3 was to allow for a lot more flexibility. Unfortunately, this additional flexibility also ended up with a lot of complexity for implementation. So V3 was not widely implemented in the same way that V2 was, but V3 did lead to Clinical Document Architecture or CDA, and that standard for clinical documents is more wisely implemented.</p>
+
+<p>And then finally, FHIR, like I said before, is based off of some of the lessons learned from V2 and V3.</p>
+
+<p>One of these lessons learned is using current web technology as much as possible, which is really useful for for implementation. This means software developers don&#39;t necessarily have to have deep health IT experience or specific experience with FHIR in order to pretty quickly get up to speed and be productive working with FHIR -- this is really useful for developing custom applications: it makes it a lot easier to find people who can work on those applications, and it makes development of those applications more rapid because it uses standard technology that&#39;s already baked into a lot of the software development tools that software engineers use outside the health domain.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-29.png" target="_blank" name="30"><img src="slides/slide-29.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#30">30</a>
+      </div>
+      <div class="col-4">
+        <p>One of the questions that comes up a lot is how FHIR works with other common data models for research. OMOP is an example of one of these common data models that is pretty widely used in the research world.</p>
+
+<p>OMOP is a common database structure that uses the OHDSI common vocabulary to provide standardized representation of observational data.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-30.png" target="_blank" name="31"><img src="slides/slide-30.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#31">31</a>
+      </div>
+      <div class="col-4">
+        <p>In March 2021, HL7 and OHDSI <a href="https://www.hl7.org/documentcenter/public/pressreleases/HL7_PRESS_20210301.pdf">announced</a> they were collaborating on interoperability for research.</p>
+
+<p>As part of this collaboration, one of the <a href="https://hl7vulcan.org/">Vulcan FHIR Accelerator</a>&#39;s projects is a <a href="https://build.fhir.org/ig/HL7/fhir-omop-ig/">OMOP to FHIR Implementation Guide</a>.</p>
+
+<p><a href="https://www.hl7.org/about/fhir-accelerator/">FHIR Accelerators</a> are a key part of the HL7 community that drives development and adoption of FHIR standards. There are a number of active Accelerators in addition to Vulcan.</p>
+
+<p>Vulcan&#39;s <a href="https://hl7vulcan.org/">goal is to</a>:</p>
+
+<blockquote>
+<p>...close gap between clinical care and clinical research to improve patient lives, decrease costs and improve efficiency.</p>
+</blockquote>
+
+<p><a href="https://mitre.github.io/fhir-for-research/modules/data-modeling-reading-igs">FHIR Implementation Guides</a> or &quot;IGs&quot; are the written specifications that define a &quot;<a href="https://www.hl7.org/fhir/R5/implementationguide.html">set of rules of how a particular interoperability or standards problem is solved</a>.&quot; <a href="https://www.hl7.org/fhir/us/core/">US Core</a> is also a FHIR IG, and we&#39;ll talk more about IGs throughout the rest of this webinar.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-31.png" target="_blank" name="32"><img src="slides/slide-31.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#32">32</a>
+      </div>
+      <div class="col-4">
+        <p>The <a href="https://build.fhir.org/ig/HL7/fhir-omop-ig/">OMOP to FHIR Implementation Guide</a> explains:</p>
+
+<blockquote>
+<p>FHIR’s role in a research data ecosystem is provision of a platform capable of supporting lossless exchange of data, knowledge and other health artifacts via its numerous FHIR resources and compliant APIs.</p>
+
+<p>In contrast, the OMOP Common Data Model was designed to store observational data optimized for research analytics and for utilization by the OHDSI community using OMOP-compliant tools to generate novel research methods and discoveries improving health.</p>
+
+<p>...</p>
+
+<p>A stable set of transformations between FHIR and OMOP permit broader utilization of observational data in research systems, enabling FHIR API access to OMOP databases and data on FHIR servers to populate OMOP instances.</p>
+</blockquote>
+
+<p>In other words, FHIR can facilitate loading data into OMOP, and work is being done to allow access to OMOP data using FHIR APIs.</p>
+
+<p>FHIR is also useful for use cases that don&#39;t really make sense for OMOP, like getting real-time data about a specific patient from an EHR, integrating directly into an EHR-centric workflow, or sending data into an EHR from an external source.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-32.png" target="_blank" name="33"><img src="slides/slide-32.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#33">33</a>
+      </div>
+      <div class="col-4">
+        <p>NEI is helping to get better support for eye-related data in OHDSI through the Eye Care &amp; Vision Workgroup.</p>
+
+<p>From <a href="https://www.ohdsi.org/wp-content/uploads/2023/10/510-HribarBriefreport.pdf">https://www.ohdsi.org/wp-content/uploads/2023/10/510-HribarBriefreport.pdf</a>:</p>
+
+<blockquote>
+<p>The OHDSI Eye Care and Vision Research Workgroup was formed to advance development and implementation of data standards in eye care research that will support studies using observational data for generating evidence to improve vision outcomes.</p>
+</blockquote>
+
+<p>This includes adding eye-related concepts to medical terminologies like SNOMED and LOINC.</p>
+
+<p>See also: Cai, et al. Advancing Toward a Common Data Model in Ophthalmology: Gap Analysis of General Eye Examination Concepts to Standard Observational Medical Outcomes Partnership (OMOP) Concepts. Ophthalmology Science 2023;3:100391. <a href="https://doi.org/10.1016/j.xops.2023.100391">https://doi.org/10.1016/j.xops.2023.100391</a>.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-33.png" target="_blank" name="34"><img src="slides/slide-33.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#34">34</a>
+      </div>
+      <div class="col-4">
+        <p>The <a href="https://www.hl7.org/fhir/uv/eyecare/history.html">Eyes on FHIR IG</a> was developed in 2021 and 2022, and support for some aspects of eye-related data. This was the IG used in the <a href="https://confluence.hl7.org/display/FHIR/2021-05+Ophthalmology+track+connectathon+27">May 2021 FHIR Connectation</a> that I mentioned previously.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-34.png" target="_blank" name="35"><img src="slides/slide-34.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#35">35</a>
+      </div>
+      <div class="col-4">
+        <ul>
+<li>FHIR® is an open standard for exchanging health data that is widely adopted and has untapped potential to enable/accelerate research.</li>
+<li>FHIR® may be useful for research touching EHR data. Examples:
+
+<ul>
+<li>EHR integration with custom clinical decision support (including imaging, AI/ML, etc.)</li>
+<li>Interoperability between EHRs and ocular imaging devices</li>
+<li>Integrate patient-reported data into EHR</li>
+<li>Clinical trial case report forms</li>
+</ul></li>
+<li>FHIR® is increasingly widely available due to ONC’s Health IT Certification program and community-driven efforts like FHIR Accelerators</li>
+<li>FHIR® peacefully coexists with research CDMs like OMOP</li>
+<li>More information: <a href="https://purl.org/fhir-for-research/nei">https://purl.org/fhir-for-research/nei</a></li>
+</ul>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-39.png" target="_blank" name="40"><img src="slides/slide-39.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#40">40</a>
+      </div>
+      <div class="col-4">
+        
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-41.png" target="_blank" name="42"><img src="slides/slide-41.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#42">42</a>
+      </div>
+      <div class="col-4">
+        
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-42.png" target="_blank" name="43"><img src="slides/slide-42.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#43">43</a>
+      </div>
+      <div class="col-4">
+        <p>Using standardized terminology is really important for all health information technology, including research applications. This allows researchers to exchange and organize health data in a consistent and reliable way.</p>
+
+<p>For example, if a standardized terminology is used to identify conditions in a problem list, then something like automated cohort building software can build a cohort based on the presence and absence of these conditions. If you don&#39;t have standardized terminology, you&#39;re relying on something like trying to parse plain text descriptions of conditions, which is much less reliable.</p>
+
+<p>Some of the common kinds of terminology or code systems that are typically encountered in the FHIR world are LOINC for identifying laboratory tests and SNOMED CT, which is a really broad health terminology system. Some of the applications for SNOMED include identifying the results of laboratory tests, but it also has lots of other things in it, like diseases and diagnoses. ICD-10 is another example of a very common terminology. RxNorm for identifying medications is another example.</p>
+
+<p>FHIR supports working with terminologies in a few different ways. FHIR supports defining code systems for use cases where you need to define a custom code system rather than using a standard one like SNOMED CT. You can also map between different code systems with FHIR, like mapping SNOMED CT onto ICD-10 for example. FHIR also allows the binding of a specific data element onto a specific subset of concepts from selected code systems.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-43.png" target="_blank" name="44"><img src="slides/slide-43.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#44">44</a>
+      </div>
+      <div class="col-4">
+        <p>Goldstein, et al. Visual Acuity: Assessment of Data Quality and Usability in an Electronic Health Record System. Ophthalmology Science 2023;3:100215. <a href="https://doi.org/10.1016/j.xops.2022.100215.">https://doi.org/10.1016/j.xops.2022.100215.</a></p>
+
+<p>This paper discusses the challenges with abstracting visual acuity data from an EHR, and shows that about 24% of visual acuity data in their sample required post-processing for standardization against their data dictionary or could not be mapped to a data dictionary at all.</p>
+
+<p>If it&#39;s possible to define a discrete data dictionary for a data element like this, FHIR provides a standardized approach to define the data dictionary and machine-readable version of the data dictionary that can be used for automatic validation of entered data. FHIR also provides other mechanisms to define constraints around non-discrete data elements. These can all be defined in a FHIR IG.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-44.png" target="_blank" name="45"><img src="slides/slide-44.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#45">45</a>
+      </div>
+      <div class="col-4">
+        <p>This shows an example of the Patient resource in FHIR R5. Recall that FHIR resources are the building blocks used to represent data in FHIR format.</p>
+
+<p>You can see at the top of the screenshot the definition for the Resource, in this case:</p>
+
+<blockquote>
+<p>Information about an individual or animal receiving health care services</p>
+</blockquote>
+
+<p>Under this root element (<code>Patient</code>), there are a list of the data elements that are part of the FHIR Resource. FHIR Resources typically don&#39;t require that the contained data elements are filled in and you can see this with the <code>0..</code> for the &quot;cardinality&quot; of all the data elements in the screenshot. This means that the minimum number required values for each of these elements is 0, meaning that they are optional by default.</p>
+
+<p>Often a specific use case will require that a data element is always populated. For example, many use cases will require <code>Patient.identifier</code> to be populated</p>
+
+<p>I want to focus now on the <code>Patient.maritalStatus</code> data element with the arrow on the slide. We can see on the the right side here that this element is is bound to a &quot;Marital Status Codes&quot; value set with an extensible binding.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-45.png" target="_blank" name="46"><img src="slides/slide-45.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#46">46</a>
+      </div>
+      <div class="col-4">
+        <p>If you clicked the hyperlink to the <a href="https://www.hl7.org/fhir/R5/valueset-marital-status.html">&quot;Marital Status Codes&quot; value set</a>, you would see a list of machine-readable the codes in the value set (<code>A</code>, <code>D</code>, etc.) along with their human-readable versions (<code>Annulled</code>, <code>Divorced</code>, etc.) and their definitions. I&#39;ve copied some of these onto this slide.</p>
+
+<p>You also see that each code comes from a code system -- all the codes on the slide come from the <code>http://terminology.hl7.org/CodeSystem/v3-MaritalStatus</code> system. In this case, this is a HL7-specific code system for marital status, but for other data elements the code system could be ICD-10 or SNOMED CT.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-46.png" target="_blank" name="47"><img src="slides/slide-46.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#47">47</a>
+      </div>
+      <div class="col-4">
+        <p>If we looked at the <a href="https://www.hl7.org/fhir/R5/valueset-marital-status.html">full Marital Status Codes value set</a>, we would see there is actually a code from a 2nd code system in this value set: this is the unknown code <code>UNK</code>, which comes from the null flavor code system (<code>https://www.hl7.org/fhir/R5/valueset-marital-status.html</code>). This is another HL7-specific code system.</p>
+
+<p>Value sets can include codes from different code systems if needed, which is important flexibility for some use cases.</p>
+
+<p>Like I said before, the <code>Patient.maritalStatus</code> data element is bound to this value set, meaning there is some degree of requirement that a patient represented by this FHIR resource would define marital status using one of these codes.</p>
+
+<p>Note that I said &quot;some degree&quot; -- whether the value for marital status <em>has</em> to come from this value set or just <em>should</em> come from the value set depends on the &quot;binding strength.&quot;</p>
+
+<p>In this example, the binding strength is &quot;extensible&quot;. This means that if a code in the bound value set represents the concept in question, then that code must be used. Otherwise, a different code can be used. So the concept &quot;divorced&quot; would have to be represented with the <code>D</code> code, but a different marital status that isn&#39;t included in the HL7 value set could be represented by an arbitrary code from an arbitrary code system. Note that the code system is always included in FHIR data along with the code, so if a different code system was used for this, there is a path to looking up the code system if you saw it in FHIR data.</p>
+
+<p>Other binding strengths include &quot;required,&quot; &quot;preferred,&quot; and &quot;example.&quot; The definitions of these binding strengths are at <a href="https://www.hl7.org/fhir/terminologies.html#strength">https://www.hl7.org/fhir/terminologies.html#strength</a>. The different binding strengths allow an implementer to create a profile of patient resource that could have a more strictly defined set of rules around how marital status is to be represented. For example, if for a research study, you need to know marital status and it needs to be a specific set of codes based off of the data dictionary for the for the study, you can do that. If you have a FHIR implementation guide, you can create a value set that has just those codes in it, and you can bind it to the marital status data element with a &quot;required&quot; binding strength</p>
+
+<p>There are automated tools available that allow you to take FHIR data and verify that it actually conforms to the constraints defined in a FHIR IG -- for example, to make sure that it doesn&#39;t have any values for marital status that aren&#39;t expected. If you&#39;ve created an implementation guide and go through this process, you have a clear way to make sure that the data you&#39;re getting are already cleaned and match what you expect. This makes it a lot easier to work with the data for analysis.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-47.png" target="_blank" name="48"><img src="slides/slide-47.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#48">48</a>
+      </div>
+      <div class="col-4">
+        <p>To quickly review the implications for research for terminology in FHIR:</p>
+
+<ul>
+<li>The FHIR specification describes where a data element like marital status should be stored: in this case, it&#39;s in the <code>Patient</code> resource and it&#39;s in a field called <code>Patient.maritalStatus</code>.</li>
+<li>The FHIR specification also describes how marital status is encoded. In this case, it uses a terminology binding with a preference for the specific set of codes that we just talked about in the <a href="https://www.hl7.org/fhir/R5/valueset-marital-status.html">Marital Status Codes value set</a>.</li>
+<li>If you need to further restrict this, you can with a FHIR Profile.</li>
+<li>If you need to specify a specific set of codes valid for a given use case or study, you can do that too, by creating your own value set. You can pull codes from multiple different code systems into this value set to get exactly the set of codes that you need.</li>
+<li>You can use FHIR to represent translations between different code systems. There&#39;s a FHIR resource called a <code>ConceptMap</code> that&#39;s designed specifically for this and that allows you to relatively easily describe in a computable way the mappings between two different code systems. This may be useful if you need to include data from multiple systems that represent the same concepts in different ways.</li>
+<li>It&#39;s typically best practice to use codes from an existing code system like SNOMED CT or LOINC whenever possible. It&#39;s also possible to get new codes added to these code systems, like the OHDSI Eye Care &amp; Vision Workgroup has done.</li>
+</ul>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-48.png" target="_blank" name="49"><img src="slides/slide-48.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#49">49</a>
+      </div>
+      <div class="col-4">
+        
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-49.png" target="_blank" name="50"><img src="slides/slide-49.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#50">50</a>
+      </div>
+      <div class="col-4">
+        <p>I&#39;ll now talk a little bit more about FHIR resources and profiles.</p>
+
+<p>As I mentioned in the first part of the webinar, resources are the building blocks of FHIR. They act as customizable templates within the general FHIR framework and can be put together to solve a specific problem or meet a specific use case.</p>
+
+<p>There are 157 FHIR Resources in the R5 release of FHIR, including resources like <code>Patient</code>, which we&#39;ve already seen. Other examples include <code>DiagnosticReport</code>, <code>Practitioner</code> and <code>Location</code> -- and there are many more.</p>
+
+<p>The resources in the base FHIR specification are designed to be very flexible. So for example, you won&#39;t see a lot of required value set bindings in the base FHIR specification. I&#39;m actually not aware of <em>any</em> required bindings in the base FHIR resources because required binding really limits what the resource can be used for: if you have a use case that that needs to use a different value set you just wouldn&#39;t be able to use that FHIR resource.</p>
+
+<p>The take-away here is that the FHIR specification tries to be as flexible as possible to avoid this kind of problem. Almost every data element in the base FHIR specification is optional, even information that may be critical for common health IT use cases. For example, in an EHR, having a patient&#39;s name and date of birth and address are pretty critical, but FHIR doesn&#39;t require that those are filled in. Instead, adding in these constraints is done downstream with use case specific FHIR Implementation Guides.</p>
+
+<p>FHIR resources without an Implementation Guide are not actually that useful for many use cases because there is so much flexibility that standardization is hard. To have that standardization, you need a FHIR Implementation Guide that contains FHIR Profiles that add constraints and add extensions to supplement the base FHIR resources. This is how you&#39;re able to really customize FHIR to meet your your specific needs.</p>
+
+<p>Profiles in an Implementation Guide define which resources should be used for a given use case like for research in a specific clinical domain. Profiles also define which data elements should be populated, and how the data elements should be populated for that use case.</p>
+
+<p>If there are concepts that don&#39;t map onto data elements in FHIR resources, it&#39;s also possible to add your own data elements through a feature called &quot;<a href="https://www.hl7.org/fhir/extensibility.html">extensions</a>&quot;, but this should only be done if necessary because it makes interoperability more difficult.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-50.png" target="_blank" name="51"><img src="slides/slide-50.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#51">51</a>
+      </div>
+      <div class="col-4">
+        <p>I showed in the first part of the webinar a screenshot of part of the list of the 157 Resources in FHIR R5. Some examples of FHIR resources include administrative resources like <code>Patient</code> and <code>Practitioner</code>; <code>Organization</code>, which could be something like a hospital; and <code>Location</code>. (<code>Location</code> is useful if you want to describe an <code>Organization</code> with multiple physical locations, like a pharmacy chain.) There are also resources related payments, meaning that coverage for insurance and claims can also be represented with FHIR resources. There are a number of clinical-related resources for things like <code>AllergyIntolerance</code>, <code>Condition</code>, <code>FamilyMemberHistory</code>, and <code>CarePlan</code>.</p>
+
+<p>There are also a number of resources related to FHIR itself, like <code>StructureDefinition</code>, which is how FHIR Profiles are defined. <code>Composition</code> resources allow you to bring together a number of FHIR resources to essentially tell a clinical story. <code>CapabilityStatement</code> is a FHIR resource that&#39;s used to describe the capabilities of a FHIR server. If you&#39;d like to read more about the different types of resources, the best place to go is the <a href="https://www.hl7.org/fhir/resourcelist.html">FHIR R5 specification</a>.</p>
+
+<p>Part of the design challenge for the FHIR Specification is figuring out what should be a resource -- what has the right scope that isn&#39;t too broad or too specific to make sense. The list of &quot;non-examples&quot; here illustrate this:</p>
+
+<ul>
+<li>Patient name is too small to be a resource. Instead it&#39;s implemented as a handful of data elements  inside the Patient resource. There would be way more than 157 resources if concepts like &quot;patient name&quot; had their own resource, and it would make the specification unmanageable.</li>
+<li>Electronic health record is too big to be a resource -- there would be thousands of data elements and things like longitudinal data would be really difficult. Instead, with FHIR, you could represent an EHR as a collection of a whole bunch of different FHIR resources.</li>
+<li>Blood pressure is too specific to be its own resource. It makes more sense to generalize this and use an Observation resource to represent blood pressure. Observation can represent lots of other observations about patients too.</li>
+<li>Intervention is too broad because this might include multiple medications or procedures, and it&#39;s better to use something like the Composition and Bundle resources to bring together multiple resources that represent an intervention.</li>
+</ul>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-51.png" target="_blank" name="52"><img src="slides/slide-51.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#52">52</a>
+      </div>
+      <div class="col-4">
+        <p>Profiles are how FHIR resources are customized for a specific use case.</p>
+
+<p>Resources like the ones we saw on the prior slide are the building blocks of the FHIR specification. They define how data is structured and exchanged, and are designed to be generic enough that they can be used in a wide variety of use cases.</p>
+
+<p>Profiles adjust resources for a specific use case. This is done in two ways:</p>
+
+<ol>
+<li>Restricting, or adding constraints, like requiring that a specific data element is populated, or a certain ValueSet must be used</li>
+<li>Extending, like adding new custom data elements with <a href="https://www.hl7.org/fhir/extensibility.html">Extensions</a></li>
+</ol>
+
+<p>Profiles are typically published in an Implementation Guide for sharing with implementers.</p>
+
+<p>Interestingly, the way you create profiles is with a resource called a <code>StructureDefinition</code> -- so you actually use FHIR itself to create customization.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-52.png" target="_blank" name="53"><img src="slides/slide-52.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#53">53</a>
+      </div>
+      <div class="col-4">
+        <p>To show you an example of what a FHIR Profile looks like, I&#39;m going to show you some screenshots from <a href="https://www.hl7.org/fhir/us/core/StructureDefinition-us-core-patient.html">US Core&#39;s profile of the Patient resource</a>.</p>
+
+<p>This page is on the US Core IG&#39;s website, and when you open it, the top has some narrative about the purpose of the Patient profile and guidance on implementation.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-53.png" target="_blank" name="54"><img src="slides/slide-53.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#54">54</a>
+      </div>
+      <div class="col-4">
+        <p>If you scroll down, you&#39;ll see this table, which is generated from the StructureDefinition resource that computably defines this profile. This kind of table appears in all FHIR profiles, and a similar table is used in the base FHIR specification for defining resources.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-54.png" target="_blank" name="55"><img src="slides/slide-54.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#55">55</a>
+      </div>
+      <div class="col-4">
+        <p>I&#39;m going to zoom in on the contents of the table to try to make it a little easier to read.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-55.png" target="_blank" name="56"><img src="slides/slide-55.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#56">56</a>
+      </div>
+      <div class="col-4">
+        <p>The first row of this table shows the FHIR Resource that is being profiled. In this case, we can see it&#39;s <code>Patient</code>, and we could click the link under &quot;type&quot; to view the <code>Patient</code> resource in the FHIR specification.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-56.png" target="_blank" name="57"><img src="slides/slide-56.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#57">57</a>
+      </div>
+      <div class="col-4">
+        <p>After that first row, each row represents a data element that is being somehow modified by the profile. (There&#39;s a different view of this table on the web page that shows <em>all</em> the data elements regardless of whether or not they are modified by the profile.)</p>
+
+<p>The left-most column provides the name of the data element, like <code>race</code>. If you click on the name of an element, you will jump to a more detailed description of the element.</p>
+
+<p>The other cells in that row provide more information on that particular data element.</p>
+
+<ul>
+<li><code>Flags</code> provides information for implementers on how to handle the data element. For example, the <code>C</code> flag indicates there are additional constraints defined on that element that need to be considered by an implementer. The <code>S</code> flag indicates the element is &quot;MustSupport&quot;, which sets expectations for when an element should be populated if the applicable data are available in the underlying system.</li>
+<li><code>Card.</code> stands for cardinality, and it provides a range for how many values need to be populated for that element. <code>0..1</code> means that the element can either be left empty or given one value. <code>1..*</code> means that the element has to have at least one value, and can have more.</li>
+<li><code>Type</code> is the data type of the element in question. The FHIR Specification provides a number of <a href="https://www.hl7.org/fhir/datatypes.html">data element types</a>. These can be things like &quot;string&quot; for text or &quot;boolean&quot; for true/false values. In this case, <code>(Complex)</code> indicates an extension: the concept of race is not part of the Patient resource in FHIR by default, but to support USCDI it was necessary to add it in so this was done via an extension.</li>
+<li><code>Description &amp; Constraints</code> provides a short narrative description of the data element.</li>
+</ul>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-57.png" target="_blank" name="58"><img src="slides/slide-57.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#58">58</a>
+      </div>
+      <div class="col-4">
+        <p>I want to talk about the <code>name</code> element for a minute because it&#39;s a good example of how FHIR can be used flexibly to meet some complex needs.</p>
+
+<p>You can see the name element is required: it has a cardinality of <code>1..*</code> meaning that at least one name must be provided. There is also a reference to instructions for what to do if a name in fact is not available: without this &quot;escape hatch&quot; for missing data, it would not be possible to use this profile in a conforming way if name wasn&#39;t available.</p>
+
+<p>There are several sub-elements under <code>name</code>, like <code>family</code>, <code>given</code>, and <code>suffix</code>. Note that these are all <code>0..</code> cardinality: they are not required even though the parent element is required. This makes it possible to represent someone with just a single name, or provide partial name information when the complete name isn&#39;t available.</p>
+
+<p>This kind of flexibility is really important for dealing with real-world health data because there can be so much heterogeneity. A lot of thought has to be given to this when creating FHIR specifications to handle this kind of thing to avoid major issues when trying to implement them.</p>
+
+<p>You also notice the red <code>S</code> flags on <code>family</code> and <code>given</code>. These indicate these elements are &quot;MustSupport&quot;, which I mentioned briefly before. This is a really important concept in FHIR implementations because it allows for specification authors to identify which elements are important for a given use case without making them required. If <code>family</code> and <code>given</code> were required, there would be a set of corner cases where the profile just wouldn&#39;t work.</p>
+
+<p>The &quot;MustSupport&quot; flag&#39;s precise meaning depends on the use case and the role of the implementer. Generally it means that the systems that are implementing the profile need to have some way to meaningfully support the data element. This might mean populating the data element for a system generating FHIR data, or for a system that reads FHIR data, it might mean being able to read the data element and display it.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-58.png" target="_blank" name="59"><img src="slides/slide-58.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#59">59</a>
+      </div>
+      <div class="col-4">
+        <p>Here&#39;s an example of an extension in FHIR. This is <a href="https://www.hl7.org/fhir/us/core/StructureDefinition-us-core-race.html">US Core&#39;s Race extension</a>, and you can get to this by clicking on the extension URL next to the <code>race</code> element on the US Core Patient profile.</p>
+
+<p>You can see the root element type here is <code>Extension</code>, and it contains a few different custom data elements to represent race.</p>
+
+<p>The first is the <code>ombCategory</code>, which has a required value set binding to the &quot;OMB Race Categories&quot; ValueSet. We&#39;ll look at this in more detail on the next slide. This data element provides a way for race to be represented in a standardized way from a set of 5 predefined codes from OMB. You notice the red <code>S</code> flag indicating this is MustSupport. The precise meaning of this depends on the implementer (<a href="https://www.hl7.org/fhir/us/core/must-support.html">more information</a>), but the high level meaning is that this data element is expected to be used whenever possible for US Core implementers.</p>
+
+<p>The <code>detailed</code> element also has a required binding to a different ValueSet, which has a much more extensive set of options that are more granular.</p>
+
+<p>The <code>text</code> element is required and provides a <code>string</code> field for a text description of race.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-59.png" target="_blank" name="60"><img src="slides/slide-59.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#60">60</a>
+      </div>
+      <div class="col-4">
+        <p>The <a href="https://www.hl7.org/fhir/us/core/ValueSet-omb-race-category.html">OMB Race Categories ValueSet</a>.</p>
+
+<p>This shows how the 5 categories OMB has selected for race are encoded -- each has a code like <code>1002-5</code> and a human-readable description like <code>American Indian or Alaska Native</code>.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-60.png" target="_blank" name="61"><img src="slides/slide-60.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#61">61</a>
+      </div>
+      <div class="col-4">
+        <p>Here&#39;s the race data extracted from an <a href="https://www.hl7.org/fhir/us/core/Patient-example.html">example Patient in US Core</a>. You can see that the three relevant OMB categories for race for this patient are represented here, as well as two more detailed race codes, and the text value from the extension.</p>
+
+<p>The data here are in JSON format, which is a commonly used way of structuring data exchanged between systems, especially systems that interact with web servers. We&#39;ll talk more about this in a few slides.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-61.png" target="_blank" name="62"><img src="slides/slide-61.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#62">62</a>
+      </div>
+      <div class="col-4">
+        <p>Before we get to that, I wanted to talk again about FHIR Implementation Guides, or &quot;IGs&quot; in a little more detail.</p>
+
+<p>IGs are a collection of profiles, extensions, and value sets like the ones we just saw from the US Core IG. These are both human- and computer-readable. The human-readable portion is distributed as web page, which is what the screenshots I was showing you are from. IGs also typically have a lot of narrative content, as well as diagrams and other information to help implementers that are part of this web page.</p>
+
+<p>The computer-readable version of the IG is in a format like JSON or XML, and can be downloaded through the IG&#39;s website.</p>
+
+<p>IGs support specific use cases, and as I mentioned before they can both constrain and extend the FHIR specification to meet the needs of their use cases.</p>
+
+<p>IGs can be published independently on the web, or created through a standards process like the ones created under HL7. There are <a href="http://fhir.org/guides/registry/">246 IGs currently registered with HL7</a>, and even more that are published elsewhere.</p>
+
+<p>HL7 has <a href="https://confluence.hl7.org/pages/viewpage.action?pageId=4489802">work groups</a> that focus on a specific domain, like clinical quality or public health. You can work with one of these work groups to publish a FHIR IG related to that domain.</p>
+
+<p>HL7 FHIR Accelerators are another avenue for FHIR IG development. I mentioned Vulcan before as an example of a FHIR Accelerator that&#39;s focused on research, but there are a number of other accelerators. <a href="https://www.hl7.org/fhir/us/mcode/">mCODE</a> is an example of a FHIR IG that comes from the CodeX FHIR accelerator -- this IG is focused on oncology-related use cases.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-62.png" target="_blank" name="63"><img src="slides/slide-62.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#63">63</a>
+      </div>
+      <div class="col-4">
+        <p>I mentioned before that there is an eye-specific IG that was under development in 2021 and 2022 under HL7. If you&#39;re curious about this, you can visit the draft version at <a href="https://build.fhir.org/ig/HL7/fhir-eyecare-ig/index.html">https://build.fhir.org/ig/HL7/fhir-eyecare-ig/index.html</a>. The left half of this slide is a screenshot of the IG web page, and the right half is a table from the IG that goes through the different use cases under development.</p>
+
+<p>These include representing various ophthalmic clinical concepts in FHIR, interoperability with imaging systems, and exchanging data.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-63.png" target="_blank" name="64"><img src="slides/slide-63.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#64">64</a>
+      </div>
+      <div class="col-4">
+        <p>We&#39;ll now cover more on how data exchange with FHIR generally works.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-64.png" target="_blank" name="65"><img src="slides/slide-64.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#65">65</a>
+      </div>
+      <div class="col-4">
+        <p>Here&#39;s an example of an &quot;instance&quot; of a FHIR Patient resource. It&#39;s in JSON format, and it&#39;s too long to fit on the slide...</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-65.png" target="_blank" name="66"><img src="slides/slide-65.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#66">66</a>
+      </div>
+      <div class="col-4">
+        <p>...so I&#39;m going to move the bottom part into a 2nd column so you can see it.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-66.png" target="_blank" name="67"><img src="slides/slide-66.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#67">67</a>
+      </div>
+      <div class="col-4">
+        <p>I&#39;ll now label the sections of the JSON with the kinds of data they contain.</p>
+
+<p>First, we have the metadata, which identifies which resource this is an instance of, and a computable identifier for the instance (<code>patient1</code> in this case).</p>
+
+<p>Then we have a human-readable summary of the instance.</p>
+
+<p>Then we have an extension, which includes a URL (in very small font so it fits) that refers to the resource that defines the extension (like the US Core race extension we saw a few slides ago).</p>
+
+<p>Finally, we have the standard data content for the patient resource: a medical record number, the patient&#39;s name, gender, date of birth, and a reference to their provider.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-67.png" target="_blank" name="68"><img src="slides/slide-67.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#68">68</a>
+      </div>
+      <div class="col-4">
+        <p>We have the same resource now in XML format. Like JSON, this is a standard format that is often used for transmitting data between systems. It&#39;s a little easier for humans to read and it fits on a slide better than JSON, but JSON is often easier to work with in software than XML.</p>
+
+<p>FHIR resources can be represented in both JSON and XML without losing any data, and it&#39;s relatively easy to convert between JSON and XML formats.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-68.png" target="_blank" name="69"><img src="slides/slide-68.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#69">69</a>
+      </div>
+      <div class="col-4">
+        <p>I mentioned REST earlier in the webinar as another common web technology that&#39;s used by FHIR systems, and I&#39;ll go into a little bit more detail about it here.</p>
+
+<p>If you recall back to the first part of the webinar on the slide that showed the FHIR client and the FHIR server, the FHIR client and the FHIR server communicate over REST.</p>
+
+<p>This is the same technology that&#39;s used by web browsers and web servers. If you type in <code>https://somedomain.com</code> in your web browser, you&#39;re sending a RESTful request.</p>
+
+<p>Web browsers use a <code>GET</code> request by default to read data off of a server. FHIR does the same thing but FHIR also allows for creating data or updating data or deleting data. And each of those operations has a HTTP verb as well: <code>POST</code> for creating, <code>GET</code> for retrieving, <code>PUT</code> for updating, and <code>DELETE</code> for deleting.</p>
+
+<p>When you&#39;re requesting data from a RESTful server, you have to provide the URL for that server. This would be the URL to the FHIR endpoint that&#39;s part of an EHR, or it could be part of another server like a FHIR-enabled OMOP database.</p>
+
+<p>When you make a REST request, you typically send some metadata in &quot;HTTP headers&quot;. This is how you  say which data type you want back: if you want JSON, you can request <code>application/FHIR+JSON</code> or <code>application/XML</code> if you want XML.</p>
+
+<p>You can send additional information if needed in the body of the request. For example, if you were creating a new FHIR resource instance with a <code>POST</code> request, you would send the JSON or XML for that instance in the body of the request.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-69.png" target="_blank" name="70"><img src="slides/slide-69.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#70">70</a>
+      </div>
+      <div class="col-4">
+        <p>Here&#39;s a breakdown of what a sample REST request looks like to a FHIR server:</p>
+
+<ul>
+<li>The GET HTTP verb</li>
+<li>The URL for the FHIR server: <code>http://hapi.fhir.org/baseR4/</code></li>
+<li>The endpoint for requesting a <code>Patient</code> resource instance: <code>Patient/</code></li>
+<li>The id of the patient in question: <code>2679766</code></li>
+</ul>
+
+<p>For the response we see the <code>200</code> HTTP status code, the content type of the data being returned, and then the JSON data for the FHIR instance requested -- this looks very similar to what we&#39;ve seen on the previous slides. This example is short, but in the real world the JSON or XML that gets sent back from the server can be <em>much</em> longer.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-70.png" target="_blank" name="71"><img src="slides/slide-70.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#71">71</a>
+      </div>
+      <div class="col-4">
+        <p>The last technology I&#39;ll talk about here are the set of SMART technologies out of Boston Children&#39;s Hospital that are relevant to research, and that are now maintained as part of the HL7 standards process.</p>
+
+<p>I&#39;ve already mentioned SMART on FHIR a few times earlier in the webinar. SMART on FHIR uses common web technology called OAuth and OpenID Connect to provide authentication, and authorization for third party applications. I&#39;ll talk a little bit more about that on the next slide.</p>
+
+<p>CDS Hooks are another related technology which allows for actions to occur when something happens inside the EHR. So for example, if a certain action happens inside the EHR, you can hook into that with a CDS Hook and then suggest a SMART on FHIR application or trigger some kind of other action based off of what&#39;s going on in the EHR. And this provides a mechanism for being able to trigger integration with things like a smart on FHIR application.</p>
+
+<p>I mentioned FHIR Bulk Data back when discussing the Cures Act and at the end of 2022, the implementation of Bulk Data is part of EHR certification with ONC. Bulk Data provides a mechanism for getting large batches of FHIR data, like population level data out of a FHIR server. As we saw here, a lot of FHIR APIs are more focused on getting a specific patient or a specific subset of patients, and Bulk Data allows for just accessing a greater set of patients all at once. Typically this would be used in something like a back end process that&#39;s doing some kind of bulk processing of a FHIR formatted data.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-71.png" target="_blank" name="72"><img src="slides/slide-71.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#72">72</a>
+      </div>
+      <div class="col-4">
+        <p>I&#39;ll talk a bit more here about SMART on FHIR.</p>
+
+<p>SMART on FHIR provides a way for applications developed by third parties to connect deeply into an EHR. And it assures adequate security to protect personal data. So, for example, if I log into the health app on my phone with my patient portal credentials that can authenticate with the patient portal and pull data using SMART on FHIR and it only gives me access to my own data. It doesn&#39;t give me access to other patients data.</p>
+
+<p>SMART on FHIR is helpful because it decouples the data from the app builder. So rather than having to have all apps built by the IT vendor that makes the EHR, third party app developers can come in and get access to that EHR data in a standardized way. This is akin to how the app stores work on smartphones: back in the early days of the iPhone, only Apple could make apps. When the App Store appeared, it allowed 3rd parties to create apps that run on Apple&#39;s platform and can access data that&#39;s stored there given the proper permissions. SMART on FHIR at a high level is analogous to the APIs that enable 3rd party iPhone apps.</p>
+
+<p>There&#39;s multiple ways that SMART on FHIR can integrate with an EHR, or can live outside an EHR and request data from the EHR when needed. So the example I just gave of logging in on my smartphone to get access to my own patient data, that&#39;s an example of a standalone app that&#39;s not integrated into the EHR at all. You can also have an EHR Launch approach, which is how the Type 2 diabetes decision support app integrated into University of Utah&#39;s EHR in the example we saw earlier.</p>
+
+<p>There&#39;s also a mechanism for SMART on FHIR to to use to EHR Launch on the server side to get access to FHIR Bulk Data API endpoints.</p>
+
+<p>In summary, SMART on FHIR enables using the EHR as a platform for different apps from different vendors. These apps are not necessarily limited to research. They can be used for lots of other things, and they can be patient-centric or provider-centric. In any case, the idea is that you can write a SMART on FHIR app once and then be able to run it across multiple EHRs without having to do a lot of modification of the underlying code.</p>
+
+<p>SMART on FHIR is relevant for a number of use cases related to ocular research. For example, it provides a mechanism for bringing image data from a PACS into an EHR&#39;s interface, and potentially for integrating AI/ML algorithms into clinical workflows. If your AI model needs data from the EHR, SMART on FHIR provides a mechanism to authenticate and retrieve the data you need in FHIR format on demand.</p>
+
+      </div>
+    </div>
+    
+    <div class="row" style="margin-bottom: 2em; padding-bottom: 2em; border-bottom: 1px solid #ccc;">
+      <div class="col-8">
+        <a href="slides/slide-72.png" target="_blank" name="73"><img src="slides/slide-72.png" class="img-fluid" style="z-index: 1; border: 1px solid #ddd;"></a><a class="slidenumber" href="#73">73</a>
+      </div>
+      <div class="col-4">
+        <p>In summary, in the second part of the webinar, we talked about the basic building blocks of FHIR and went through the Patient Resource in some detail.</p>
+
+<p>We talked about the data elements that are defined by resources, how these data elements have names and types, and they could be bound to terminology.</p>
+
+<p>We talked about implementation guides, how implementation guides can be used for extending FHIR to meet a specific use case. This can be done by adding constraints like required elements or specific terminology bindings, and also by adding extensions if the base FHIR specification doesn&#39;t provide the data element that you need.</p>
+
+<p>We also talked about the standard web technology that FHIR uses and how this can facilitate interoperability and could potentially be used to facilitate research use cases as well.</p>
+
+      </div>
+    </div>
+    
+  </div>
+
+  <div class="text-center" style="margin: 4em;">MITRE: Approved for Public Release. Distribution Unlimited. Case Number #24-0169.</div>
+</body>
+</html>
